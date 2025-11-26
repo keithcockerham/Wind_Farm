@@ -81,7 +81,7 @@ event_data = test_data[test_data['event'] == event_id]
 # Plot key sensors
 sensor_cols = ['sensor_5_std', 'sensor_18_std', 'sensor_52_std']
 for sensor in sensor_cols:
-    fig = px.line(event_data, x=event_data.index, y=sensor,
+    fig = px.line(event_data, x=event_data['time_stamp'], y=sensor,
                   title=f'{sensor} - 24h Before Failure')
     st.plotly_chart(fig)
 
