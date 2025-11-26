@@ -10,7 +10,7 @@ slit_dir = os.path.join(PROJECT_DIR, 'Streamlit')
 
 #event_score_path = os.path.join(slit_dir, 'event_scores.csv')
 event_scores = pd.read_csv('event_scores.csv')  
-
+features = pd.read_csv('features.csv')
 #missed_path = os.path.join(slit_dir, 'missed.csv')
 missed = pd.read_csv('missed.csv')
 
@@ -80,10 +80,21 @@ event_data = test_data[test_data['event'] == event_id]
 
 
 # Plot key sensors
-sensor_cols = ['sensor_5_std', 'sensor_18_std', 'sensor_52_std']
+
+sensor_descriptions = pd.read_csv('features.csv', index_col='sensor_name')['description'].to_dict()
+
+sensor_cols = ['sensor_5_std', 'sensor_18_std', 'sensor_26_avg', 'sensor_2_avg']
+
 for sensor in sensor_cols:
+    # Extract the root sensor name (e.g., 'sensor_26' from 'sensor_26_avg')
+    root_sensor = re.match(r'(sensor_\d+|wind_speed_\d+|reactive_power_\d+|power_\d+)', sensor).group(1)
+    
+    # Get the description
+    description = sensor_descriptions.get(root_sensor, 'Unknown')
+    
+    # Create the plot with enhanced title
     fig = px.line(event_data, x=event_data.index, y=sensor,
-                  title=f'{sensor} - 24h Before Failure')
+                  title=f'{root_sensor}: {description} - 24h Before Failure')
     st.plotly_chart(fig)
 
 ############################################################################

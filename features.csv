@@ -1,0 +1,55 @@
+,sensor_name,description
+0,sensor_0,Ambient temperature
+1,sensor_1,Wind absolute direction
+2,sensor_2,Wind relative direction
+3,wind_speed_3,Windspeed
+4,wind_speed_4,Estimated windspeed
+5,sensor_5,Pitch angle
+6,sensor_6,Temperature in the hub controller
+7,sensor_7,Temperature in the top nacelle controller
+8,sensor_8,Temperature in the choke coils on the VCS-section
+9,sensor_9,Temperature on the VCP-board
+10,sensor_10,Temperature in the VCS cooling water
+11,sensor_11,Temperature in gearbox bearing on high speed shaft
+12,sensor_12,Temperature oil in gearbox
+13,sensor_13,Temperature in generator bearing 2 (Drive End)
+14,sensor_14,Temperature in generator bearing 1 (Non-Drive End)
+15,sensor_15,Temperature inside generator in stator windings phase 1
+16,sensor_16,Temperature inside generator in stator windings phase 2
+17,sensor_17,Temperature inside generator in stator windings phase 3
+18,sensor_18,Generator rpm in latest period
+19,sensor_19,Temperature in the split ring chamber
+20,sensor_20,Temperature in the busbar section
+21,sensor_21,Temperature measured by the IGBT-driver on the grid side inverter
+22,sensor_22,Actual phase displacement
+23,sensor_23,Averaged current in phase 1
+24,sensor_24,Averaged current in phase 2
+25,sensor_25,Averaged current in phase 3
+26,sensor_26,Grid frequency
+27,reactive_power_27,Possible grid capacitive reactive power
+28,reactive_power_28,Possible grid inductive reactive power
+29,power_29,Possible grid active power
+30,power_30,Grid power
+31,sensor_31,Grid reactive power
+32,sensor_32,Averaged voltage in phase 1
+33,sensor_33,Averaged voltage in phase 2
+34,sensor_34,Averaged voltage in phase 3
+35,sensor_35,Temperature measured by the IGBT-driver on the rotor side inverter phase1
+36,sensor_36,Temperature measured by the IGBT-driver on the rotor side inverter phase2
+37,sensor_37,Temperature measured by the IGBT-driver on the rotor side inverter phase3
+38,sensor_38,Temperature in HV transformer phase L1
+39,sensor_39,Temperature in HV transformer phase L2
+40,sensor_40,Temperature in HV transformer phase L3
+41,sensor_41,Temperature oil in hydraulic group
+42,sensor_42,Nacelle direction
+43,sensor_43,Nacelle temperature
+44,sensor_44,Active power - generator disconnected
+45,sensor_45,Active power - generator connected in delta
+46,sensor_46,Active power - generator connected in star
+47,sensor_47,Reactive power - generator disconnected
+48,sensor_48,Reactive power - generator connected in delta
+49,sensor_49,Reactive power - generator connected in star
+50,sensor_50,Total active power
+51,sensor_51,Total reactive power
+52,sensor_52,Rotor rpm
+53,sensor_53,Temperature in the nose cone
