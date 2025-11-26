@@ -84,7 +84,7 @@ event_data = test_data[test_data['event'] == event_id]
 
 sensor_descriptions = pd.read_csv('features.csv', index_col='sensor_name')['description'].to_dict()
 
-sensor_cols = ['sensor_5_std', 'sensor_18_std', 'sensor_26_avg', 'sensor_2_avg']
+sensor_cols = ['sensor_6_avg', 'sensor_18_std', 'sensor_43_avg', 'sensor_52_std', 'sensor_53_avg']
 
 for sensor in sensor_cols:
     # Extract the root sensor name (e.g., 'sensor_26' from 'sensor_26_avg')
