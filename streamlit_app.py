@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import os
+import re
 
 PROJECT_DIR = r"D:\Projects\Wind_Turbine"
 DATA_DIR = r"D:\Data\SCADA\Wind_Turbine"
