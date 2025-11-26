@@ -76,7 +76,7 @@ event_id = st.selectbox("Select Event to Examine:", event_scores['event'])
 
 # Load that event's data
 
-event_data = test_data[test_data[[]'event','time_stamp]'] == event_id]
+event_data = test_data[test_data[['event','time_stamp']] == event_id]
 
 # Plot key sensors
 sensor_cols = ['sensor_5_std', 'sensor_18_std', 'sensor_52_std']
