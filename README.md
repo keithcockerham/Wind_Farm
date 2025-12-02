@@ -21,9 +21,8 @@ Developed a failure prediction system for wind turbines that detects 67% of fail
 | **Environment** | Onshore Portugal | Offshore Germany | Offshore Germany |
 | **Sensors** | 81 | 257 | 952 |
 | **Failures** | 12 | 6 | 27 |
-| **Recall** | 67% | 33% → **67%*** | 67% |
-| **Precision** | 89% | 100% | 100% |
-| **False Alarms** | 1/76 | 0/180 | 0/435 |
+| **Recall** | 67% → 58%| 33% → 50% | 67% → 56% |
+| **Precision** | 89% → 100% | 100% → 75% | 100% |
 
 *\* Unified model result (farm-specific: 33%)*
 
@@ -120,37 +119,6 @@ Developed a failure prediction system for wind turbines that detects 67% of fail
 
 ---
 
-## 📁 Repository Structure
-```
-├── docs/                    # documentation
-│   ├── methodology.md       # methodology
-│   ├── unified_model.md     # Unified approach details
-│   └── deployment_guide.md  # Production deployment
-│
-├── src/                     # Production code
-│   ├── pipeline.py          # Main pipeline class
-│   ├── feature_engineering.py
-│   ├── unified/             # Unified model code
-│   └── utils.py
-│
-├── notebooks/               # Analysis notebooks
-│   ├── farm_exploration.ipynb
-│   ├── unified_model.ipynb
-│   └── ...
-│
-├── streamlit_app/           # Interactive web app
-│   ├── streamlit_app.py
-│   └── pages/
-│
-├── results/                 # Outputs & metrics
-│   ├── performance_metrics.csv
-│   └── predictions/
-│
-└── tests/                   # Unit tests
-```
-
----
-
 ## 🌐 Live Demo
 
 **Interactive Streamlit App:** [https://windfarm.streamlit.app/](https://windfarm.streamlit.app/)
@@ -171,63 +139,18 @@ Explore:
 
 - [**Full Methodology**](docs/methodology.md) - 15,000-word detailed explanation
 - [**Unified Model**](docs/unified_model.md) - Cross-farm learning approach
-- [**Transferability Assessment**](docs/transferability_assessment.md) - 3-farm validation
-- [**Deployment Guide**](docs/deployment_guide.md) - Production deployment
 
 ### Quick Links
 
 - [Data Sources](data/README.md)
-- [API Documentation](docs/api.md)
 - [Example Notebooks](notebooks/)
 - [Model Results](results/)
 
 ---
 
-## Business Impact
-
-**Potential ROI (Per Farm):**
-- Average failure cost: $50K - $500K
-- Downtime: $1K - $5K per day
-- 67% detection rate × 2 failures/year = ~1.3 failures prevented
-- **Annual savings: $65K - $650K**
-
-**Implementation Cost:** ~$50K (one-time)  
-**Payback Period:** <1 year
-
-**Scalability:** Unified model enables deployment on new/small farms with minimal data collection period (6 months vs 2+ years).
-
----
-
-## 🔮 Future Enhancements
-
-**Phase 1: Model Improvements**
-- [ ] Hybrid approach (unified + farm-specific features)
-- [ ] Gradient boosting models (XGBoost, LightGBM)
-- [ ] Ensemble methods
-- [ ] Online learning / model updating
-
-**Phase 2: Feature Engineering**
-- [ ] Rolling statistics for smooth degradation detection
-- [ ] Frequency domain features (FFT)
-- [ ] Interaction features
-- [ ] Automated category discovery
-
-**Phase 3: Deployment**
-- [ ] Real-time prediction API
-- [ ] Alert notification system
-- [ ] Dashboard for operations team
-- [ ] Integration with CMMS
-
-**Phase 4: Expansion**
-- [ ] Additional failure types
-- [ ] Other renewable energy assets (solar, hydro)
-- [ ] Multi-task learning (failure type classification)
-
----
-
 ## Contributing
 
-This is a portfolio project, but suggestions and feedback are welcome!
+This is a learning project, but suggestions and feedback are welcome!
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/improvement`)
