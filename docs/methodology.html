@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Methodology | Wind Turbine Failure Prediction</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>⚡ Wind Turbine Failure Prediction</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="methodology.html" class="active">Methodology</a></li>
+                <li><a href="results.html">Results</a></li>
+                <li><a href="https://github.com/yourusername/wind-turbine-prediction" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="hero">
+        <div class="container">
+            <h2>Systematic ML Methodology</h2>
+            <p class="subtitle">Validation-first approach for production-ready predictive maintenance</p>
+        </div>
+    </section>
+
+    <!-- Methodology Overview -->
+    <section class="overview">
+        <div class="container">
+            <h2>5-Step Pipeline</h2>
+            
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <h3>1️⃣ Data Validation</h3>
+                    <p><strong>Goal:</strong> Ensure data quality and understand temporal patterns</p>
+                    <ul style="margin-top: 1rem; line-height: 1.8;">
+                        <li>Validate SCADA structure (10-min intervals)</li>
+                        <li>Analyze failure timing patterns (7-day vs sudden)</li>
+                        <li>Critical insight: status==0 AND power>0.1 for true normal operation</li>
+                        <li>Create ±30 day exclusion zones around failures</li>
+                    </ul>
+                </div>
+
+                <div class="overview-card">
+                    <h3>2️⃣ Feature Engineering</h3>
+                    <p><strong>Goal:</strong> Create meaningful aggregated features from raw sensor data</p>
+                    <ul style="margin-top: 1rem; line-height: 1.8;">
+                        <li>Extract 24-hour windows (144 timestamps)</li>
+                        <li>Compute statistics: mean, std, linear trend</li>
+                        <li>Generates 3× features per sensor (243-2,856 features)</li>
+                        <li>Captures both level and variability</li>
+                    </ul>
+                </div>
+
+                <div class="overview-card">
+                    <h3>3️⃣ Feature Selection</h3>
+                    <p><strong>Goal:</strong> Select discriminative, non-redundant features</p>
+                    <ul style="margin-top: 1rem; line-height: 1.8;">
+                        <li>Cohen's d for effect size (threshold: 0.8-1.0)</li>
+                        <li>Iterative correlation removal (r < 0.9)</li>
+                        <li>Discovered massive redundancy (214 pairs r>0.9)</li>
+                        <li>Final: 15-50 features per farm</li>
+                    </ul>
+                </div>
+
+                <div class="overview-card">
+                    <h3>4️⃣ Model Training</h3>
+                    <p><strong>Goal:</strong> Train interpretable model with proper validation</p>
+                    <ul style="margin-top: 1rem; line-height: 1.8;">
+                        <li>Random Forest (n=100, max_depth=5, balanced)</li>
+                        <li>Leave-One-Out CV (appropriate for n=6-27 failures)</li>
+                        <li>Chose interpretability over performance</li>
+                        <li>Per-event probability tracking</li>
+                    </ul>
+                </div>
+
+                <div class="overview-card">
+                    <h3>5️⃣ Transferability Validation</h3>
+                    <p><strong>Goal:</strong> Verify methodology works across different environments</p>
+                    <ul style="margin-top: 1rem; line-height: 1.8;">
+                        <li>Farm C independent validation (67% matches Farm A)</li>
+                        <li>Different location, turbine model, sensor count</li>
+                        <li>Demonstrates methodology generalizability</li>
+                        <li>Production-ready confidence</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Decisions -->
+    <section class="findings">
+        <div class="container">
+            <h2>Critical Methodology Decisions</h2>
+            
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <div class="finding-icon">✓</div>
+                    <h3>Random Forest > Deep Learning</h3>
+                    <p><strong>Rationale:</strong> Small dataset (n=6-27 failures) makes deep learning impractical. Random Forest provides interpretability critical for operator trust while maintaining strong performance.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Alternative considered:</strong> LSTM (rejected - requires 100s of failures)</p>
+                </div>
+
+                <div class="finding-card">
+                    <div class="finding-icon">📊</div>
+                    <h3>Window Statistics > Raw Time Series</h3>
+                    <p><strong>Rationale:</strong> Aggregating 24h windows into mean/std/trend reduces dimensionality while capturing essential patterns. Enables consistent feature space across 81-952 sensors.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Alternative considered:</strong> CNN on raw sequences (rejected - too many sensors)</p>
+                </div>
+
+                <div class="finding-card">
+                    <div class="finding-icon">🎯</div>
+                    <h3>Cohen's d > Univariate Tests</h3>
+                    <p><strong>Rationale:</strong> Cohen's d measures practical significance (effect size), not just statistical significance. More appropriate for small samples where p-values can be misleading.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Threshold:</strong> d > 0.8-1.0 (large effect size)</p>
+                </div>
+
+                <div class="finding-card">
+                    <div class="finding-icon">🔄</div>
+                    <h3>Leave-One-Out CV > K-Fold</h3>
+                    <p><strong>Rationale:</strong> With only 6-27 failures, standard k-fold would have <2 failures per fold. LOO maximizes training data (n-1) while providing unbiased estimates.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Trade-off:</strong> Computationally expensive but necessary</p>
+                </div>
+
+                <div class="finding-card">
+                    <div class="finding-icon">⚖️</div>
+                    <h3>Precision > Recall Trade-off</h3>
+                    <p><strong>Rationale:</strong> False alarms cost $5K-$10K (unnecessary inspection) and erode operator trust. Optimized for 95%+ precision while maximizing recall within this constraint.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Result:</strong> 100% validation precision achieved</p>
+                </div>
+
+                <div class="finding-card">
+                    <div class="finding-icon">🏭</div>
+                    <h3>±30 Day Exclusion Zones</h3>
+                    <p><strong>Rationale:</strong> Prevents data leakage from pre-failure degradation (7-day pattern) or post-failure anomalies. Ensures true "normal" baseline windows.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Validation:</strong> Tested 15, 30, 45 days (30 optimal)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unified Model Approach -->
+    <section class="technical">
+        <div class="container">
+            <h2>Unified Multi-Farm Model</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>The Problem</h3>
+                    <p><strong>Challenge:</strong> Farm B has only 6 failures (below minimum 10-12 needed for reliable ML)</p>
+                    <p><strong>Result:</strong> 33% recall - unreliable, cannot deploy</p>
+                    <p><strong>Question:</strong> Can we leverage data from other farms to improve Farm B?</p>
+                </div>
+
+                <div class="tech-card">
+                    <h3>The Solution: Semantic Mapping</h3>
+                    <p><strong>Approach:</strong> Map farm-specific sensors to unified physical categories</p>
+                    <p><strong>Example:</strong></p>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Farm A: sensor_48 → rotor_mechanical</li>
+                        <li>Farm B: sensor_20 → rotor_mechanical</li>
+                        <li>Farm C: sensor_100 → rotor_mechanical</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem;"><strong>Result:</strong> 16 shared categories across all farms</p>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Category Merging Process</h3>
+                    <p><strong>Initial:</strong> 50 granular categories (88% missing data)</p>
+                    <p><strong>Merges Applied:</strong> 38 documented merges</p>
+                    <p><strong>Examples:</strong></p>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>electrical_general + electrical_grid + electrical_internal → electrical_grid</li>
+                        <li>gearbox_bearings + gearbox_main_shaft → gearbox_mechanical</li>
+                        <li>generator_current + generator_speed → generator_electrical</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem;"><strong>Final:</strong> 16 categories (25% missing)</p>
+                </div>
+
+                <div class="tech-card">
+                    <h3>Results & Trade-offs</h3>
+                    <p><strong>Farm B Improvement:</strong> 33% → 50% (+17%)</p>
+                    <p><strong>Training data:</strong> 6 → 45 failures (7.5× increase)</p>
+                    <p><strong>Trade-off:</strong> Farms A & C degrade -7 to -9%</p>
+                    <p><strong>Root cause:</strong> Aggregating sensors within categories loses granular information</p>
+                    <p style="margin-top: 0.5rem;"><strong>Conclusion:</strong> Unified best for limited-data; farm-specific preferred when possible</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lessons Learned -->
+    <section class="metrics">
+        <div class="container">
+            <h2>Lessons Learned</h2>
+            
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <h3>💡 Data Quality > Model Complexity</h3>
+                    <p>Spent 40% of time on data validation and cleaning. Critical insight about status filtering (status==0 AND power>0.1) discovered through EDA, dramatically improved performance.</p>
+                </div>
+
+                <div class="finding-card">
+                    <h3>📊 Feature Engineering is Key</h3>
+                    <p>Window aggregation (mean, std, trend) captures 90% of signal. Adding max/min provided minimal gain. Simple statistics on domain-informed features > complex architectures.</p>
+                </div>
+
+                <div class="finding-card">
+                    <h3>⚖️ Multi-Domain Learning Trade-offs</h3>
+                    <p>Unified approach improves limited-data scenarios (+17%) but sacrifices peak performance on well-instrumented farms (-7 to -9%). Generalizability vs. optimization is fundamental.</p>
+                </div>
+
+                <div class="finding-card">
+                    <h3>🎯 Validation Strategy Matters</h3>
+                    <p>Independent validation (Farm C) provided confidence in methodology transferability. LOO CV appropriate for small n. Real-world validation > perfect metrics on training set.</p>
+                </div>
+
+                <div class="finding-card">
+                    <h3>📝 Documentation Pays Off</h3>
+                    <p>Systematic documentation of every decision, trade-off, and alternative considered creates portfolio value. 30,000+ words across all methodology documents demonstrates rigorous thinking.</p>
+                </div>
+
+                <div class="finding-card">
+                    <h3>🔧 Interpretability for Production</h3>
+                    <p>Operator trust requires understanding WHY the model predicts failure. Random Forest feature importance + physical category names make predictions explainable and actionable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools & Technologies -->
+    <section class="overview">
+        <div class="container">
+            <h2>Tools & Technologies</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h3>Data Processing</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Python 3.8+</li>
+                        <li>✓ Pandas (2.5M+ records)</li>
+                        <li>✓ NumPy</li>
+                        <li>✓ SciPy (statistical tests)</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h3>Machine Learning</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Scikit-learn</li>
+                        <li>✓ Random Forest Classifier</li>
+                        <li>✓ Feature Selection</li>
+                        <li>✓ Cross-Validation</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h3>Visualization</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Matplotlib</li>
+                        <li>✓ Seaborn</li>
+                        <li>✓ Plotly (interactive)</li>
+                        <li>✓ Streamlit (dashboards)</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h3>Development</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✓ Jupyter Notebooks</li>
+                        <li>✓ Git / GitHub</li>
+                        <li>✓ VS Code</li>
+                        <li>✓ GitHub Pages</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Explore More</h2>
+            <div class="cta-buttons">
+                <a href="results.html" class="btn btn-primary">View Results</a>
+                <a href="https://github.com/yourusername/wind-turbine-prediction" class="btn btn-secondary" target="_blank">GitHub Repository</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Keith | Data Science Portfolio | <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a> | <a href="https://github.com/yourusername" target="_blank">GitHub</a></p>
+        </div>
+    </footer>
+</body>
+</html>

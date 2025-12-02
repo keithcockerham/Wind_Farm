@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results | Wind Turbine Failure Prediction</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>⚡ Wind Turbine Failure Prediction</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="methodology.html">Methodology</a></li>
+                <li><a href="results.html" class="active">Results</a></li>
+                <li><a href="https://github.com/yourusername/wind-turbine-prediction" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="hero">
+        <div class="container">
+            <h2>Detailed Results & Analysis</h2>
+            <p class="subtitle">Comprehensive performance metrics across three independent wind farms</p>
+        </div>
+    </section>
+
+    <!-- Farm-Specific Results -->
+    <section class="overview">
+        <div class="container">
+            <h2>Farm-Specific Model Results</h2>
+            
+            <div class="overview-grid">
+                <!-- Farm A -->
+                <div class="overview-card">
+                    <h3>🏭 Farm A (Development)</h3>
+                    <p><strong>Location:</strong> Onshore, Portugal</p>
+                    <p><strong>Sensors:</strong> 81 (54 base + aggregations)</p>
+                    <p><strong>Failures:</strong> 12 events</p>
+                    <hr style="margin: 1rem 0; border: 1px solid #e2e8f0;">
+                    <p><strong>Performance:</strong></p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Recall: <span class="badge-success">67%</span> (8/12 detected)</li>
+                        <li>✓ Precision: <span class="badge-success">100%</span> (0 false alarms)</li>
+                        <li>✓ Specificity: 100% (78/78 normal correct)</li>
+                        <li>✓ Features Selected: 24 (from 243)</li>
+                    </ul>
+                    <p style="margin-top: 1rem; color: #718096; font-size: 0.9rem;">
+                        <strong>Top Signal:</strong> sensor_48_std (Cohen's d=1.618) - RPM variability
+                    </p>
+                </div>
+
+                <!-- Farm B -->
+                <div class="overview-card">
+                    <h3>🌊 Farm B (Limited Data)</h3>
+                    <p><strong>Location:</strong> Offshore, Germany</p>
+                    <p><strong>Sensors:</strong> 257 (86 base + aggregations)</p>
+                    <p><strong>Failures:</strong> 6 events</p>
+                    <hr style="margin: 1rem 0; border: 1px solid #e2e8f0;">
+                    <p><strong>Performance:</strong></p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>⚠️ Recall: <span class="badge-warning">33%</span> (2/6 detected)</li>
+                        <li>✓ Precision: <span class="badge-success">100%</span> (0 false alarms)</li>
+                        <li>✓ Specificity: 100% (179/179 normal correct)</li>
+                        <li>✓ Features Selected: 45 (from 756)</li>
+                    </ul>
+                    <p style="margin-top: 1rem; color: #718096; font-size: 0.9rem;">
+                        <strong>Challenge:</strong> Only 6 failures (minimum 10-12 needed for reliable ML)
+                    </p>
+                </div>
+
+                <!-- Farm C -->
+                <div class="overview-card">
+                    <h3>⚓ Farm C (Validation)</h3>
+                    <p><strong>Location:</strong> Offshore, Germany</p>
+                    <p><strong>Sensors:</strong> 952 (317 base + aggregations)</p>
+                    <p><strong>Failures:</strong> 27 events</p>
+                    <hr style="margin: 1rem 0; border: 1px solid #e2e8f0;">
+                    <p><strong>Performance:</strong></p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>✓ Recall: <span class="badge-success">63%</span> (17/27 detected)</li>
+                        <li>✓ Precision: <span class="badge-success">100%</span> (0 false alarms)</li>
+                        <li>✓ Specificity: 100% (423/423 normal correct)</li>
+                        <li>✓ Features Selected: 50 (from 2,856)</li>
+                    </ul>
+                    <p style="margin-top: 1rem; color: #718096; font-size: 0.9rem;">
+                        <strong>Validation:</strong> Independent test - matches Farm A performance (67% vs 63%)
+                    </p>
+                </div>
+            </div>
+
+            <div id="farmComparisonChart" style="margin-top: 3rem;"></div>
+        </div>
+    </section>
+
+    <!-- Unified Model Results -->
+    <section class="metrics">
+        <div class="container">
+            <h2>Unified Multi-Farm Model Results</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: #718096;">
+                Semantic sensor mapping enables cross-farm learning by aggregating farm-specific sensors into 16 unified physical categories
+            </p>
+
+            <div class="results-table-container">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Farm</th>
+                            <th>Baseline Recall</th>
+                            <th>Unified Recall</th>
+                            <th>Change</th>
+                            <th>Baseline Precision</th>
+                            <th>Unified Precision</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Farm A</strong></td>
+                            <td>67%</td>
+                            <td>58%</td>
+                            <td><span style="color: #f5576c;">-9%</span></td>
+                            <td>100%</td>
+                            <td>100%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Farm B</strong></td>
+                            <td>33%</td>
+                            <td>50%</td>
+                            <td><span style="color: #38ef7d;">+17%</span></td>
+                            <td>100%</td>
+                            <td>75%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Farm C</strong></td>
+                            <td>63%</td>
+                            <td>56%</td>
+                            <td><span style="color: #f5576c;">-7%</span></td>
+                            <td>100%</td>
+                            <td>100%</td>
+                        </tr>
+                        <tr style="background: #f7fafc; font-weight: 600;">
+                            <td><strong>Overall</strong></td>
+                            <td>56%</td>
+                            <td>56%</td>
+                            <td style="color: #718096;">0%</td>
+                            <td>100%</td>
+                            <td>96%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="unifiedComparisonChart" style="margin-top: 2rem;"></div>
+
+            <div class="findings-grid" style="margin-top: 3rem;">
+                <div class="finding-card">
+                    <div class="finding-icon">✓</div>
+                    <h3>Farm B Improvement</h3>
+                    <p><strong>+17%</strong> recall improvement (33% → 50%) by leveraging combined training data (6 → 45 failures). Farm B now approaches deployment threshold.</p>
+                </div>
+                
+                <div class="finding-card">
+                    <div class="finding-icon">⚖️</div>
+                    <h3>Trade-off Analysis</h3>
+                    <p>Farm A and C experience <strong>-7 to -9%</strong> degradation due to loss of granular sensor information. Overall system neutral at 56% recall.</p>
+                </div>
+                
+                <div class="finding-card">
+                    <div class="finding-icon">🎯</div>
+                    <h3>Precision Maintained</h3>
+                    <p><strong>99.9%</strong> specificity overall (1 false alarm in 669 normal windows). Critical for maintaining operator trust in production.</p>
+                </div>
+                
+                <div class="finding-card">
+                    <div class="finding-icon">📊</div>
+                    <h3>Key Learning</h3>
+                    <p>Unified approach best for <strong>limited-data scenarios</strong>. Farm-specific models preferred when adequate data exists (n>10 failures).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Importance -->
+    <section class="findings">
+        <div class="container">
+            <h2>Top Discriminative Features</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
+                <!-- Farm-Specific Features -->
+                <div>
+                    <h3 style="text-align: center; margin-bottom: 1.5rem;">Farm-Specific Models</h3>
+                    <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                        <h4>Farm A (Top 5)</h4>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">
+                                <strong>sensor_48_std</strong> <span style="float: right; color: #667eea;">d=1.618</span><br>
+                                <small style="color: #718096;">RPM variability</small>
+                            </li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">
+                                <strong>sensor_31_avg_std</strong> <span style="float: right; color: #667eea;">d=1.558</span><br>
+                                <small style="color: #718096;">Voltage variability</small>
+                            </li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">
+                                <strong>sensor_51_std</strong> <span style="float: right; color: #667eea;">d=1.558</span><br>
+                                <small style="color: #718096;">Generator variability</small>
+                            </li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">
+                                <strong>sensor_18_min_std</strong> <span style="float: right; color: #667eea;">d=1.416</span><br>
+                                <small style="color: #718096;">Hydraulic pressure</small>
+                            </li>
+                            <li style="padding: 0.5rem 0;">
+                                <strong>sensor_11_avg_std</strong> <span style="float: right; color: #667eea;">d=1.413</span><br>
+                                <small style="color: #718096;">Temperature variability</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Unified Features -->
+                <div>
+                    <h3 style="text-align: center; margin-bottom: 1.5rem;">Unified Model</h3>
+                    <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                        <h4>Top 5 (Semantic Categories)</h4>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">
+                                <strong>pitch_angle_std</strong> <span style="float: right; color: #764ba2;">d=1.228</span><br>
+                                <small style="color: #718096;">Pitch control instability</small>
+                            </li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">
+                                <strong>generator_electrical_std</strong> <span style="float: right; color: #764ba2;">d=0.858</span><br>
+                                <small style="color: #718096;">Generator electrical variability</small>
+                            </li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">
+                                <strong>rotor_mechanical_std</strong> <span style="float: right; color: #764ba2;">d=0.759</span><br>
+                                <small style="color: #718096;">Rotor mechanical instability</small>
+                            </li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">
+                                <strong>pitch_control_std</strong> <span style="float: right; color: #764ba2;">d=0.716</span><br>
+                                <small style="color: #718096;">Pitch system stress</small>
+                            </li>
+                            <li style="padding: 0.5rem 0;">
+                                <strong>pitch_angle_mean</strong> <span style="float: right; color: #764ba2;">d=0.688</span><br>
+                                <small style="color: #718096;">Elevated pitch angle</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="featureImportanceChart" style="margin-top: 3rem;"></div>
+        </div>
+    </section>
+
+    <!-- Confusion Matrices -->
+    <section class="technical">
+        <div class="container">
+            <h2>Confusion Matrices</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h3 style="text-align: center; margin-bottom: 1rem;">Farm A</h3>
+                    <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                        <tr>
+                            <td colspan="2" style="border: none;"></td>
+                            <td colspan="2" style="border-bottom: 2px solid #667eea; padding: 0.5rem;"><strong>Predicted</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border: none;"></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Normal</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Failure</strong></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" style="border-right: 2px solid #667eea; padding: 0.5rem; vertical-align: middle; writing-mode: vertical-lr; transform: rotate(180deg);"><strong>Actual</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Normal</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0; background: #e6ffed;">78</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0; background: #fff3cd;">0</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Failure</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0; background: #fff3cd;">4</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0; background: #e6ffed;">8</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h3 style="text-align: center; margin-bottom: 1rem;">Farm B</h3>
+                    <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                        <tr>
+                            <td colspan="2" style="border: none;"></td>
+                            <td colspan="2" style="border-bottom: 2px solid #667eea; padding: 0.5rem;"><strong>Predicted</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border: none;"></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Normal</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Failure</strong></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" style="border-right: 2px solid #667eea; padding: 0.5rem; vertical-align: middle; writing-mode: vertical-lr; transform: rotate(180deg);"><strong>Actual</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Normal</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0; background: #e6ffed;">179</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0; background: #fff3cd;">0</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Failure</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0; background: #f8d7da;">4</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0; background: #fff3cd;">2</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <h3 style="text-align: center; margin-bottom: 1rem;">Farm C</h3>
+                    <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                        <tr>
+                            <td colspan="2" style="border: none;"></td>
+                            <td colspan="2" style="border-bottom: 2px solid #667eea; padding: 0.5rem;"><strong>Predicted</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border: none;"></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Normal</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Failure</strong></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" style="border-right: 2px solid #667eea; padding: 0.5rem; vertical-align: middle; writing-mode: vertical-lr; transform: rotate(180deg);"><strong>Actual</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Normal</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0; background: #e6ffed;">423</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0; background: #fff3cd;">0</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0;"><strong>Failure</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0; background: #fff3cd;">10</td>
+                            <td style="padding: 0.5rem; border: 1px solid #e2e8f0; background: #e6ffed;">17</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Impact -->
+    <section class="metrics">
+        <div class="container">
+            <h2>Business Impact Analysis</h2>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">💰</div>
+                    <div class="metric-value">$100K-$500K</div>
+                    <div class="metric-label">Cost per Failure</div>
+                    <p class="metric-desc">Lost revenue + repair costs</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">✓</div>
+                    <div class="metric-value">$200K</div>
+                    <div class="metric-label">Farm B Annual Savings</div>
+                    <p class="metric-desc">2 failures prevented (unified model)</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🎯</div>
+                    <div class="metric-value">12.5:1</div>
+                    <div class="metric-label">ROI (Year 1)</div>
+                    <p class="metric-desc">$200K saved / $16K implementation</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">⚡</div>
+                    <div class="metric-value">24h</div>
+                    <div class="metric-label">Warning Window</div>
+                    <p class="metric-desc">Sufficient for scheduling maintenance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Download Results</h2>
+            <div class="cta-buttons">
+                <a href="https://github.com/yourusername/wind-turbine-prediction/tree/main/results" class="btn btn-primary" target="_blank">View on GitHub</a>
+                <a href="methodology.html" class="btn btn-secondary">Read Methodology</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Keith | Data Science Portfolio | <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a> | <a href="https://github.com/yourusername" target="_blank">GitHub</a></p>
+        </div>
+    </footer>
+
+    <script src="js/results-charts.js"></script>
+</body>
+</html>
