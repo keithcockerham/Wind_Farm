@@ -1,0 +1,223 @@
+Loading pre-processed Farm A...
+Loading pre-processed Farm B...
+Loading pre-processed Farm C...
+
+Rebuilding unified dataset with merged categories...
+================================================================================
+
+Processing Farm A...
+  Failure windows: 12
+  Normal windows: 65
+
+Processing Farm B...
+  Failure windows: 6
+  Normal windows: 180
+
+Processing Farm C...
+  Failure windows: 27
+  Normal windows: 424
+
+============================================================
+UNIFIED DATASET CREATED
+============================================================
+Total windows: 714
+Failure windows: 45
+Normal windows: 669
+Features: 78
+
+Windows per farm:
+farm
+C    451
+B    186
+A     77
+Name: count, dtype: int64
+
+Dataset shape: (714, 83)
+Total windows: 714
+Failure windows: 45
+Normal windows: 669
+
+Features: 78
+Missing data: 23.9% average
+Features with <25% missing: 42
+Features with <50% missing: 66
+
+Total unified features: 78
+
+Features by statistic type:
+  mean: 26
+  std: 26
+  trend: 26
+  max: 0
+  min: 0
+
+============================================================
+Feature Coverage by Farm:
+============================================================
+
+Farm A (77 windows):
+  Mean coverage: 61.5%
+  Min coverage: 0.0%
+  Features with 100% coverage: 48
+
+Farm B (186 windows):
+  Mean coverage: 61.5%
+  Min coverage: 0.0%
+  Features with 100% coverage: 48
+
+Farm C (451 windows):
+  Mean coverage: 84.6%
+  Min coverage: 0.0%
+  Features with 100% coverage: 66
+
+============================================================
+Missing Data Analysis:
+============================================================
+
+Features with >50% missing: 12
+Features with >25% missing: 36
+Features with >10% missing: 42
+Features with 0% missing: 36
+
+Top 20 features with most missing data:
+nacelle_controller_trend      89.215686
+nacelle_controller_std        89.215686
+nacelle_controller_mean       89.215686
+hydraulic_system_trend        89.215686
+hydraulic_system_std          89.215686
+hydraulic_system_mean         89.215686
+structural_vibration_mean     73.949580
+structural_vibration_std      73.949580
+structural_vibration_trend    73.949580
+tower_structural_mean         73.949580
+tower_structural_std          73.949580
+tower_structural_trend        73.949580
+hydraulic_aggregate_trend     36.834734
+hydraulic_aggregate_mean      36.834734
+hydraulic_aggregate_std       36.834734
+nacelle_pressure_trend        36.834734
+hydraulic_locking_std         36.834734
+hydraulic_locking_trend       36.834734
+hydraulic_oil_mean            36.834734
+hydraulic_oil_std             36.834734
+dtype: float64
+
+============================================================
+Discriminative Power Analysis:
+============================================================
+
+Features analyzed: 66
+Skipped (>75% missing): 12
+Skipped (errors/insufficient data): 0
+Features with d > 1.0: 1
+Features with d > 0.8: 2
+Features with d > 0.6: 7
+Features with d > 0.5: 11
+
+Top 20 discriminative unified features:
+                  feature  cohens_d    mean_diff
+          pitch_angle_std  1.228476     9.626135
+ generator_electrical_std  0.858495    68.373810
+     rotor_mechanical_std  0.759435     1.226650
+        pitch_control_std  0.715616     3.154956
+         pitch_angle_mean  0.687875     7.492994
+  control_temperature_std  0.679632     0.648994
+    generator_thermal_std  0.616091     2.435657
+       power_reactive_std  0.565033   156.027435
+  gearbox_mechanical_mean  0.537155   -30.486980
+        rotor_thermal_std  0.523528     1.039160
+        pitch_angle_trend  0.523011    -0.094788
+hydraulic_aggregate_trend  0.499354     0.050205
+   gearbox_mechanical_std  0.469636     4.507868
+  gearbox_lubrication_std  0.436589     3.869029
+     electrical_grid_mean  0.422101 -1194.013184
+      electrical_grid_std  0.421475    56.332741
+    hydraulic_pumps_trend  0.420586     0.001251
+     environment_wind_std  0.415370     1.399646
+  hydraulic_locking_trend  0.392155     0.076755
+         power_active_std  0.386159  1705.141724
+
+Total feature columns: 78
+
+Features analyzed: 66
+Skipped (>75% missing): 12
+Skipped (errors/insufficient data): 0
+
+Candidates (d > 0.5): 11
+
+Selected 11 features
+(max_corr < 0.9, d > 0.5)
+
+
+FINAL UNIFIED FEATURE SET:
+============================================================
+  pitch_angle_std                                    d=1.228
+  generator_electrical_std                           d=0.858
+  rotor_mechanical_std                               d=0.759
+  pitch_control_std                                  d=0.716
+  pitch_angle_mean                                   d=0.688
+  control_temperature_std                            d=0.680
+  generator_thermal_std                              d=0.616
+  power_reactive_std                                 d=0.565
+  gearbox_mechanical_mean                            d=0.537
+  rotor_thermal_std                                  d=0.524
+  pitch_angle_trend                                  d=0.523
+
+================================================================================
+UNIFIED MODEL EVALUATION
+================================================================================
+
+Features: 11
+Total samples: 714
+Failures: 45
+Normal: 669
+
+Missing values before imputation: 263
+Missing values after imputation: 0
+
+Running Leave-One-Out Cross-Validation...
+
+============================================================
+OVERALL PERFORMANCE
+============================================================
+
+Confusion Matrix:
+[[668   1]
+ [ 20  25]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+      Normal       0.97      1.00      0.98       669
+     Failure       0.96      0.56      0.70        45
+
+    accuracy                           0.97       714
+   macro avg       0.97      0.78      0.84       714
+weighted avg       0.97      0.97      0.97       714
+
+
+============================================================
+FAILURES DETECTED: 25 / 45 (55.6%)
+============================================================
+
+============================================================
+PERFORMANCE BY FARM
+============================================================
+
+Farm A:
+  Total failures: 12
+  Detected: 7 (58%)
+  False alarms: 0/65
+  Precision: 100%
+
+Farm B:
+  Total failures: 6
+  Detected: 3 (50%)
+  False alarms: 1/180
+  Precision: 75%
+
+Farm C:
+  Total failures: 27
+  Detected: 15 (56%)
+  False alarms: 0/424
+  Precision: 100%

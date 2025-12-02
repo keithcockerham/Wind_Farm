@@ -1,0 +1,264 @@
+Loading pre-processed Farm C...
+STEP 1: DATA VALIDATION
+============================================================
+✓ Data structure valid
+  SCADA records: 1,574,461
+  Unique assets: 22
+  Total events: 27
+  Anomaly events: 27
+  Power column: power_2_avg
+  Status values: [0, 3, 4, 5]
+
+STEP 2: TEMPORAL PATTERN ANALYSIS
+============================================================
+
+  Gap statistics (hours):
+    Mean: 8.9
+    Median: 0.2
+    Min: 0.2
+    Max: 137.8
+
+STEP 3: FEATURE ENGINEERING
+============================================================
+  Sensor columns: 952
+
+Created features for 27 failure windows
+Feature count: 2856
+
+Processing asset 2...
+  Created 20 normal windows
+
+Processing asset 5...
+  Created 20 normal windows
+
+Processing asset 12...
+  Created 20 normal windows
+
+Processing asset 13...
+  Created 20 normal windows
+
+Processing asset 14...
+  Created 20 normal windows
+
+Processing asset 15...
+  Created 20 normal windows
+
+Processing asset 16...
+  Created 19 normal windows
+
+Processing asset 21...
+  Created 20 normal windows
+
+Processing asset 23...
+  Created 20 normal windows
+
+Processing asset 32...
+  Created 15 normal windows
+
+Processing asset 33...
+  Created 20 normal windows
+
+Processing asset 34...
+  Created 20 normal windows
+
+Processing asset 35...
+  Created 16 normal windows
+
+Processing asset 38...
+  Created 20 normal windows
+
+Processing asset 42...
+  Created 20 normal windows
+
+Processing asset 43...
+  Created 20 normal windows
+
+Processing asset 44...
+  Created 20 normal windows
+
+Processing asset 50...
+  Created 20 normal windows
+
+Processing asset 52...
+  Created 20 normal windows
+
+Processing asset 53...
+  Created 13 normal windows
+
+Processing asset 55...
+  Created 20 normal windows
+
+Processing asset 56...
+  Created 20 normal windows
+
+Total normal windows: 423
+
+  Dataset created:
+    Total windows: 450
+    Failure windows: 27
+    Normal windows: 423
+    Features: 2856
+
+STEP 4: FEATURE SELECTION
+============================================================
+Starting features: 2856
+
+Features with effect size calculated: 2856
+
+Effect size distribution:
+  Cohen's d > 1.0 (large): 280
+  Cohen's d > 0.8 (large): 556
+  Cohen's d > 0.6 (medium): 781
+
+Top 30 discriminative features:
+            feature  cohens_d    mean_diff
+ sensor_100_std_std  1.854174     2.943137
+ sensor_105_std_std  1.853938     2.937315
+ sensor_103_std_std  1.853396     2.938820
+ sensor_101_std_std  1.851853     2.938627
+ sensor_104_std_std  1.850717     2.933980
+ sensor_102_std_std  1.835340     2.987475
+ sensor_104_max_std  1.735793    18.579483
+ sensor_105_max_std  1.735072    18.646906
+ sensor_102_max_std  1.734069    18.756632
+ sensor_101_max_std  1.730894    18.564159
+ sensor_100_max_std  1.730461    18.732750
+ sensor_103_max_std  1.729900    18.711624
+sensor_137_min_mean  1.696611 -1146.654907
+sensor_138_min_mean  1.696348 -1145.977905
+sensor_136_min_mean  1.696219 -1146.348755
+  sensor_8_min_mean  1.674043   -58.120964
+sensor_137_avg_mean  1.625268 -1142.648193
+sensor_136_avg_mean  1.625256 -1143.149658
+sensor_138_avg_mean  1.624951 -1142.460571
+ sensor_144_max_std  1.597724     2.270781
+  sensor_8_avg_mean  1.589251   -57.888878
+ sensor_137_max_std  1.585049   568.100220
+ sensor_138_max_std  1.584507   567.476868
+ sensor_136_max_std  1.583732   568.164795
+   sensor_8_max_std  1.581628    28.725901
+   sensor_8_min_std  1.557632    22.394169
+sensor_136_max_mean  1.556797 -1131.568115
+sensor_137_max_mean  1.556055 -1130.391357
+sensor_138_max_mean  1.555814 -1130.976562
+ sensor_144_avg_std  1.548896     1.984559
+
+STEP 4B: REDUNDANCY REMOVAL
+============================================================
+Candidates (d > 1.0): 280
+
+Selected 50 non-redundant features
+(max_corr < 0.9, Cohen's d > 1.0)
+
+
+FINAL FEATURE SET:
+============================================================
+  sensor_100_std_std                       d=1.854
+  sensor_104_max_std                       d=1.736
+  sensor_137_min_mean                      d=1.697
+  sensor_144_max_std                       d=1.598
+  sensor_8_min_std                         d=1.558
+  sensor_144_min_mean                      d=1.476
+  sensor_147_max_std                       d=1.457
+  sensor_135_max_mean                      d=1.439
+  sensor_147_min_std                       d=1.429
+  sensor_196_std_mean                      d=1.423
+  sensor_131_min_mean                      d=1.406
+  sensor_134_std_mean                      d=1.358
+  sensor_144_std_std                       d=1.327
+  sensor_146_avg_std                       d=1.299
+  sensor_145_max_std                       d=1.298
+  sensor_230_std_std                       d=1.296
+  reactive_power_120_max_mean              d=1.277
+  sensor_35_min_std                        d=1.242
+  sensor_66_min_mean                       d=1.239
+  sensor_169_max_std                       d=1.231
+  sensor_68_min_std                        d=1.208
+  sensor_226_std_std                       d=1.207
+  reactive_power_121_std_std               d=1.203
+  sensor_69_min_std                        d=1.201
+  sensor_92_std_mean                       d=1.182
+  sensor_184_max_mean                      d=1.175
+  reactive_power_121_max_std               d=1.164
+  sensor_145_min_std                       d=1.158
+  sensor_66_avg_std                        d=1.155
+  sensor_125_min_std                       d=1.149
+  sensor_160_min_mean                      d=1.143
+  sensor_146_max_trend                     d=1.141
+  sensor_149_std_mean                      d=1.141
+  sensor_226_min_std                       d=1.132
+  sensor_147_std_std                       d=1.131
+  sensor_168_min_mean                      d=1.107
+  wind_speed_236_min_mean                  d=1.103
+  sensor_146_min_mean                      d=1.102
+  sensor_123_max_std                       d=1.101
+  sensor_204_min_mean                      d=1.091
+  sensor_70_avg_mean                       d=1.086
+  sensor_59_std_mean                       d=1.082
+  reactive_power_122_min_mean              d=1.077
+  sensor_150_max_std                       d=1.069
+  sensor_149_min_mean                      d=1.069
+  sensor_156_max_std                       d=1.067
+  sensor_108_min_std                       d=1.058
+  sensor_43_max_std                        d=1.046
+  sensor_145_std_std                       d=1.041
+  sensor_146_std_std                       d=1.039
+
+
+STEP 5: MODEL EVALUATION
+================================================================================
+Features: 50
+Samples: 450 (27 failures, 423 normal)
+
+Confusion Matrix:
+[[423   0]
+ [ 10  17]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+      Normal       0.98      1.00      0.99       423
+     Failure       1.00      0.63      0.77        27
+
+    accuracy                           0.98       450
+   macro avg       0.99      0.81      0.88       450
+weighted avg       0.98      0.98      0.98       450
+
+
+================================================================================
+FAILURES DETECTED: 17 / 27 (63.0%)
+================================================================================
+
+Per-failure probabilities:
+Event ID     Predicted    Probability 
+----------------------------------------
+12           FAILURE ✓    0.873
+15           normal ✗     0.275
+66           FAILURE ✓    0.810
+78           normal ✗     0.158
+30           FAILURE ✓    0.543
+79           normal ✗     0.039
+47           normal ✗     0.000
+70           FAILURE ✓    0.825
+5            FAILURE ✓    0.609
+49           FAILURE ✓    0.908
+4            FAILURE ✓    0.623
+18           normal ✗     0.279
+67           FAILURE ✓    0.808
+31           normal ✗     0.013
+81           normal ✗     0.084
+91           normal ✗     0.389
+11           FAILURE ✓    0.961
+33           FAILURE ✓    0.675
+44           FAILURE ✓    0.998
+55           normal ✗     0.000
+39           FAILURE ✓    0.938
+28           FAILURE ✓    0.998
+16           FAILURE ✓    0.897
+35           FAILURE ✓    0.988
+76           normal ✗     0.022
+9            FAILURE ✓    0.906
+90           FAILURE ✓    0.687
+
+Detected failures - probability range: 0.543 to 0.998
+Missed failures - probability range: 0.000 to 0.389

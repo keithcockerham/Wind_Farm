@@ -1,0 +1,144 @@
+{
+  "metadata": {
+    "date": "2025-12-02",
+    "model_type": "farm_specific",
+    "farm": "A",
+    "location": "Onshore, Portugal",
+    "random_seed": 42
+  },
+  "data_validation": {
+    "scada_records": 425205,
+    "unique_assets": 5,
+    "total_events": 12,
+    "anomaly_events": 12,
+    "power_column": "reactive_power_27_avg",
+    "status_values": [0, 3, 4]
+  },
+  "temporal_patterns": {
+    "gap_statistics_hours": {
+      "mean": 118.7,
+      "median": 168.2,
+      "min": 0.2,
+      "max": 175.0
+    }
+  },
+  "feature_engineering": {
+    "sensor_columns": 81,
+    "features_created": 243,
+    "failure_windows": 12,
+    "normal_windows": 78,
+    "total_windows": 90
+  },
+  "feature_selection": {
+    "starting_features": 243,
+    "features_analyzed": 243,
+    "effect_size_distribution": {
+      "cohens_d_gt_1.0": 71,
+      "cohens_d_gt_0.8": 91,
+      "cohens_d_gt_0.6": 121
+    },
+    "selection_criteria": {
+      "cohens_d_threshold": 1.0,
+      "correlation_threshold": 0.9,
+      "max_features": null
+    },
+    "selected_features": 24,
+    "top_features": [
+      {"name": "sensor_48_std", "cohens_d": 1.618},
+      {"name": "sensor_18_min_std", "cohens_d": 1.416},
+      {"name": "sensor_11_avg_std", "cohens_d": 1.413},
+      {"name": "wind_speed_3_max_mean", "cohens_d": 1.350},
+      {"name": "sensor_41_avg_std", "cohens_d": 1.323},
+      {"name": "reactive_power_27_avg_std", "cohens_d": 1.281},
+      {"name": "power_30_max_mean", "cohens_d": 1.279},
+      {"name": "sensor_31_min_std", "cohens_d": 1.239},
+      {"name": "sensor_44_std", "cohens_d": 1.224},
+      {"name": "sensor_53_avg_std", "cohens_d": 1.220},
+      {"name": "wind_speed_4_avg_mean", "cohens_d": 1.200},
+      {"name": "sensor_8_avg_std", "cohens_d": 1.184},
+      {"name": "reactive_power_28_std_std", "cohens_d": 1.135},
+      {"name": "sensor_26_avg_mean", "cohens_d": 1.120},
+      {"name": "reactive_power_28_max_std", "cohens_d": 1.108},
+      {"name": "sensor_5_max_std", "cohens_d": 1.099},
+      {"name": "sensor_5_min_std", "cohens_d": 1.092},
+      {"name": "sensor_11_avg_mean", "cohens_d": 1.075},
+      {"name": "sensor_53_avg_mean", "cohens_d": 1.070},
+      {"name": "sensor_12_avg_mean", "cohens_d": 1.057},
+      {"name": "sensor_0_avg_std", "cohens_d": 1.036},
+      {"name": "sensor_34_avg_mean", "cohens_d": 1.016},
+      {"name": "power_30_std_std", "cohens_d": 1.014},
+      {"name": "sensor_8_avg_mean", "cohens_d": 1.011}
+    ]
+  },
+  "model_evaluation": {
+    "model_type": "RandomForestClassifier",
+    "cross_validation": "Leave-One-Out",
+    "samples": {
+      "total": 90,
+      "failures": 12,
+      "normal": 78
+    },
+    "confusion_matrix": {
+      "true_negative": 78,
+      "false_positive": 0,
+      "false_negative": 4,
+      "true_positive": 8
+    },
+    "performance": {
+      "recall": 0.667,
+      "precision": 1.0,
+      "accuracy": 0.956,
+      "f1_score": 0.80,
+      "specificity": 1.0,
+      "false_alarms": 0
+    },
+    "classification_report": {
+      "normal": {
+        "precision": 0.95,
+        "recall": 1.0,
+        "f1_score": 0.97,
+        "support": 78
+      },
+      "failure": {
+        "precision": 1.0,
+        "recall": 0.67,
+        "f1_score": 0.80,
+        "support": 12
+      }
+    }
+  },
+  "per_event_predictions": [
+    {"event_id": 73, "predicted": "normal", "actual": "failure", "probability": 0.207, "detected": false},
+    {"event_id": 0, "predicted": "failure", "actual": "failure", "probability": 0.856, "detected": true},
+    {"event_id": 26, "predicted": "normal", "actual": "failure", "probability": 0.318, "detected": false},
+    {"event_id": 40, "predicted": "normal", "actual": "failure", "probability": 0.020, "detected": false},
+    {"event_id": 42, "predicted": "normal", "actual": "failure", "probability": 0.354, "detected": false},
+    {"event_id": 10, "predicted": "failure", "actual": "failure", "probability": 0.755, "detected": true},
+    {"event_id": 68, "predicted": "failure", "actual": "failure", "probability": 0.954, "detected": true},
+    {"event_id": 45, "predicted": "failure", "actual": "failure", "probability": 0.805, "detected": true},
+    {"event_id": 84, "predicted": "failure", "actual": "failure", "probability": 0.974, "detected": true},
+    {"event_id": 22, "predicted": "failure", "actual": "failure", "probability": 0.926, "detected": true},
+    {"event_id": 72, "predicted": "failure", "actual": "failure", "probability": 0.608, "detected": true},
+    {"event_id": 51, "predicted": "failure", "actual": "failure", "probability": 0.608, "detected": true}
+  ],
+  "probability_analysis": {
+    "detected_failures": {
+      "count": 8,
+      "min_probability": 0.608,
+      "max_probability": 0.974
+    },
+    "missed_failures": {
+      "count": 4,
+      "min_probability": 0.020,
+      "max_probability": 0.354
+    }
+  },
+  "notable_events": {
+    "event_40": {
+      "description": "Smooth degradation pattern (declining RPM)",
+      "probability": 0.020,
+      "detected": false,
+      "note": "Aggregated features miss smooth trends"
+    }
+  }
+}

@@ -1,0 +1,199 @@
+Loading pre-processed Farm B...
+STEP 1: DATA VALIDATION
+============================================================
+✓ Data structure valid
+  SCADA records: 560,070
+  Unique assets: 9
+  Total events: 6
+  Anomaly events: 6
+  Power column: reactive_power_11_avg
+  Status values: [0, 1, 4, 5]
+
+STEP 2: TEMPORAL PATTERN ANALYSIS
+============================================================
+
+  Gap statistics (hours):
+    Mean: 3270.8
+    Median: 2617.8
+    Min: 311.7
+    Max: 7632.8
+
+STEP 3: FEATURE ENGINEERING
+============================================================
+  Sensor columns: 252
+
+Created features for 6 failure windows
+Feature count: 756
+
+Processing asset 0...
+  Created 20 normal windows
+
+Processing asset 2...
+  Created 19 normal windows
+
+Processing asset 5...
+  Created 20 normal windows
+
+Processing asset 6...
+  Created 20 normal windows
+
+Processing asset 7...
+  Created 20 normal windows
+
+Processing asset 11...
+  Created 20 normal windows
+
+Processing asset 12...
+  Created 20 normal windows
+
+Processing asset 13...
+  Created 20 normal windows
+
+Processing asset 14...
+  Created 20 normal windows
+
+Total normal windows: 179
+
+  Dataset created:
+    Total windows: 185
+    Failure windows: 6
+    Normal windows: 179
+    Features: 756
+
+STEP 4: FEATURE SELECTION
+============================================================
+Starting features: 756
+
+Features with effect size calculated: 756
+
+Effect size distribution:
+  Cohen's d > 1.0 (large): 151
+  Cohen's d > 0.8 (large): 236
+  Cohen's d > 0.6 (medium): 326
+
+Top 30 discriminative features:
+                   feature  cohens_d   mean_diff
+         sensor_20_avg_std  2.295672  174.073257
+         sensor_19_avg_std  2.291784  173.787048
+         sensor_25_avg_std  2.288594    1.510874
+         power_58_max_mean  2.192066   -0.448318
+         sensor_20_max_std  2.147044  187.265076
+         sensor_25_max_std  2.140183    1.624602
+         sensor_20_std_std  2.139838  152.802353
+         sensor_25_std_std  2.133350    1.323215
+         sensor_19_std_std  2.127387  153.029388
+         sensor_19_max_std  2.103797  189.023071
+         power_58_avg_mean  2.073940   -0.451596
+reactive_power_11_max_mean  1.976747   -0.048308
+        sensor_14_max_mean  1.953427 -119.873047
+reactive_power_11_avg_mean  1.943131   -0.047410
+reactive_power_11_std_mean  1.912826   -0.046791
+        sensor_24_max_mean  1.878987 -209.546875
+        sensor_28_max_mean  1.871144  -16.754356
+        sensor_13_max_mean  1.858834 -122.833984
+          sensor_2_avg_std  1.852334  -13.954074
+         sensor_2_avg_mean  1.850250  -32.868729
+         sensor_6_min_mean  1.837478   -0.472316
+         sensor_3_avg_mean  1.832479 -325.230347
+         power_62_avg_mean  1.828899   -0.314697
+         power_58_std_mean  1.828226   -0.428485
+        sensor_28_min_mean  1.821563   -4.237090
+        sensor_26_avg_mean  1.818330   -0.313102
+        sensor_18_avg_mean  1.812386  -33.226444
+        sensor_17_avg_mean  1.811953  -33.276718
+    wind_speed_60_min_mean  1.811437   -0.541658
+        sensor_15_max_mean  1.811089 -120.041016
+
+STEP 4B: REDUNDANCY REMOVAL
+============================================================
+Candidates (d > 1.0): 151
+
+Selected 45 non-redundant features
+(max_corr < 0.9, Cohen's d > 1.0)
+
+
+FINAL FEATURE SET:
+============================================================
+  sensor_20_avg_std                        d=2.296
+  power_58_max_mean                        d=2.192
+  reactive_power_11_max_mean               d=1.977
+  sensor_14_max_mean                       d=1.953
+  sensor_2_avg_std                         d=1.852
+  sensor_6_min_mean                        d=1.837
+  sensor_3_avg_mean                        d=1.832
+  sensor_0_avg_std                         d=1.701
+  sensor_19_min_std                        d=1.653
+  sensor_22_max_std                        d=1.643
+  sensor_22_std_std                        d=1.587
+  sensor_28_avg_mean                       d=1.576
+  sensor_53_min_std                        d=1.554
+  wind_speed_59_min_mean                   d=1.542
+  sensor_55_std_mean                       d=1.529
+  wind_speed_59_std_mean                   d=1.507
+  sensor_47_std_std                        d=1.490
+  sensor_52_min_std                        d=1.483
+  sensor_1_avg_std                         d=1.440
+  sensor_25_std_mean                       d=1.419
+  sensor_54_avg_mean                       d=1.410
+  wind_speed_60_min_std                    d=1.402
+  sensor_54_max_mean                       d=1.378
+  sensor_30_std_mean                       d=1.362
+  sensor_10_min_std                        d=1.323
+  sensor_53_max_std                        d=1.316
+  sensor_45_max_mean                       d=1.313
+  sensor_0_avg_mean                        d=1.273
+  sensor_57_max_std                        d=1.213
+  sensor_29_std_mean                       d=1.164
+  power_58_max_std                         d=1.156
+  sensor_47_min_std                        d=1.140
+  sensor_28_std_mean                       d=1.125
+  sensor_38_avg_std                        d=1.122
+  sensor_52_min_mean                       d=1.117
+  sensor_34_max_std                        d=1.111
+  sensor_56_std_mean                       d=1.108
+  sensor_4_std_std                         d=1.108
+  sensor_55_min_std                        d=1.092
+  sensor_34_min_std                        d=1.078
+  sensor_38_std_mean                       d=1.076
+  sensor_10_max_std                        d=1.072
+  sensor_33_std_trend                      d=1.059
+  sensor_55_max_mean                       d=1.038
+  sensor_49_min_mean                       d=1.034
+
+
+STEP 5: MODEL EVALUATION
+================================================================================
+Features: 45
+Samples: 185 (6 failures, 179 normal)
+
+Confusion Matrix:
+[[179   0]
+ [  4   2]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+      Normal       0.98      1.00      0.99       179
+     Failure       1.00      0.33      0.50         6
+
+    accuracy                           0.98       185
+   macro avg       0.99      0.67      0.74       185
+weighted avg       0.98      0.98      0.97       185
+
+
+================================================================================
+FAILURES DETECTED: 2 / 6 (33.3%)
+================================================================================
+
+Per-failure probabilities:
+Event ID     Predicted    Probability 
+----------------------------------------
+53           normal ✗     0.060
+27           normal ✗     0.010
+19           normal ✗     0.380
+77           FAILURE ✓    0.640
+7            normal ✗     0.420
+34           FAILURE ✓    0.700
+
+Detected failures - probability range: 0.640 to 0.700
+Missed failures - probability range: 0.010 to 0.420

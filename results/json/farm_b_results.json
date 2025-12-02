@@ -1,0 +1,155 @@
+{
+  "metadata": {
+    "date": "2025-12-02",
+    "model_type": "farm_specific",
+    "farm": "B",
+    "location": "Offshore, Germany",
+    "random_seed": 42
+  },
+  "data_validation": {
+    "scada_records": 560070,
+    "unique_assets": 9,
+    "total_events": 6,
+    "anomaly_events": 6,
+    "power_column": "reactive_power_11_avg",
+    "status_values": [0, 1, 4, 5]
+  },
+  "temporal_patterns": {
+    "gap_statistics_hours": {
+      "mean": 3270.8,
+      "median": 2617.8,
+      "min": 311.7,
+      "max": 7632.8
+    }
+  },
+  "feature_engineering": {
+    "sensor_columns": 252,
+    "features_created": 756,
+    "failure_windows": 6,
+    "normal_windows": 179,
+    "total_windows": 185
+  },
+  "feature_selection": {
+    "starting_features": 756,
+    "features_analyzed": 756,
+    "effect_size_distribution": {
+      "cohens_d_gt_1.0": 151,
+      "cohens_d_gt_0.8": 236,
+      "cohens_d_gt_0.6": 326
+    },
+    "selection_criteria": {
+      "cohens_d_threshold": 1.0,
+      "correlation_threshold": 0.9,
+      "max_features": null
+    },
+    "selected_features": 45,
+    "top_features": [
+      {"name": "sensor_20_avg_std", "cohens_d": 2.296},
+      {"name": "power_58_max_mean", "cohens_d": 2.192},
+      {"name": "reactive_power_11_max_mean", "cohens_d": 1.977},
+      {"name": "sensor_14_max_mean", "cohens_d": 1.953},
+      {"name": "sensor_2_avg_std", "cohens_d": 1.852},
+      {"name": "sensor_6_min_mean", "cohens_d": 1.837},
+      {"name": "sensor_3_avg_mean", "cohens_d": 1.832},
+      {"name": "sensor_0_avg_std", "cohens_d": 1.701},
+      {"name": "sensor_19_min_std", "cohens_d": 1.653},
+      {"name": "sensor_22_max_std", "cohens_d": 1.643},
+      {"name": "sensor_22_std_std", "cohens_d": 1.587},
+      {"name": "sensor_28_avg_mean", "cohens_d": 1.576},
+      {"name": "sensor_53_min_std", "cohens_d": 1.554},
+      {"name": "wind_speed_59_min_mean", "cohens_d": 1.542},
+      {"name": "sensor_55_std_mean", "cohens_d": 1.529},
+      {"name": "wind_speed_59_std_mean", "cohens_d": 1.507},
+      {"name": "sensor_47_std_std", "cohens_d": 1.490},
+      {"name": "sensor_52_min_std", "cohens_d": 1.483},
+      {"name": "sensor_1_avg_std", "cohens_d": 1.440},
+      {"name": "sensor_25_std_mean", "cohens_d": 1.419},
+      {"name": "sensor_54_avg_mean", "cohens_d": 1.410},
+      {"name": "wind_speed_60_min_std", "cohens_d": 1.402},
+      {"name": "sensor_54_max_mean", "cohens_d": 1.378},
+      {"name": "sensor_30_std_mean", "cohens_d": 1.362},
+      {"name": "sensor_10_min_std", "cohens_d": 1.323},
+      {"name": "sensor_53_max_std", "cohens_d": 1.316},
+      {"name": "sensor_45_max_mean", "cohens_d": 1.313},
+      {"name": "sensor_0_avg_mean", "cohens_d": 1.273},
+      {"name": "sensor_57_max_std", "cohens_d": 1.213},
+      {"name": "sensor_29_std_mean", "cohens_d": 1.164},
+      {"name": "power_58_max_std", "cohens_d": 1.156},
+      {"name": "sensor_47_min_std", "cohens_d": 1.140},
+      {"name": "sensor_28_std_mean", "cohens_d": 1.125},
+      {"name": "sensor_38_avg_std", "cohens_d": 1.122},
+      {"name": "sensor_52_min_mean", "cohens_d": 1.117},
+      {"name": "sensor_34_max_std", "cohens_d": 1.111},
+      {"name": "sensor_56_std_mean", "cohens_d": 1.108},
+      {"name": "sensor_4_std_std", "cohens_d": 1.108},
+      {"name": "sensor_55_min_std", "cohens_d": 1.092},
+      {"name": "sensor_34_min_std", "cohens_d": 1.078},
+      {"name": "sensor_38_std_mean", "cohens_d": 1.076},
+      {"name": "sensor_10_max_std", "cohens_d": 1.072},
+      {"name": "sensor_33_std_trend", "cohens_d": 1.059},
+      {"name": "sensor_55_max_mean", "cohens_d": 1.038},
+      {"name": "sensor_49_min_mean", "cohens_d": 1.034}
+    ]
+  },
+  "model_evaluation": {
+    "model_type": "RandomForestClassifier",
+    "cross_validation": "Leave-One-Out",
+    "samples": {
+      "total": 185,
+      "failures": 6,
+      "normal": 179
+    },
+    "confusion_matrix": {
+      "true_negative": 179,
+      "false_positive": 0,
+      "false_negative": 4,
+      "true_positive": 2
+    },
+    "performance": {
+      "recall": 0.333,
+      "precision": 1.0,
+      "accuracy": 0.978,
+      "f1_score": 0.50,
+      "specificity": 1.0,
+      "false_alarms": 0
+    },
+    "classification_report": {
+      "normal": {
+        "precision": 0.98,
+        "recall": 1.0,
+        "f1_score": 0.99,
+        "support": 179
+      },
+      "failure": {
+        "precision": 1.0,
+        "recall": 0.33,
+        "f1_score": 0.50,
+        "support": 6
+      }
+    }
+  },
+  "per_event_predictions": [
+    {"event_id": 53, "predicted": "normal", "actual": "failure", "probability": 0.060, "detected": false},
+    {"event_id": 27, "predicted": "normal", "actual": "failure", "probability": 0.010, "detected": false},
+    {"event_id": 19, "predicted": "normal", "actual": "failure", "probability": 0.380, "detected": false},
+    {"event_id": 77, "predicted": "failure", "actual": "failure", "probability": 0.640, "detected": true},
+    {"event_id": 7, "predicted": "normal", "actual": "failure", "probability": 0.420, "detected": false},
+    {"event_id": 34, "predicted": "failure", "actual": "failure", "probability": 0.700, "detected": true}
+  ],
+  "probability_analysis": {
+    "detected_failures": {
+      "count": 2,
+      "min_probability": 0.640,
+      "max_probability": 0.700
+    },
+    "missed_failures": {
+      "count": 4,
+      "min_probability": 0.010,
+      "max_probability": 0.420
+    }
+  },
+  "limitations": {
+    "sample_size": "Only 6 failures - below minimum 10-12 needed for reliable ML",
+    "note": "Poor performance expected due to insufficient training data"
+  }
+}
