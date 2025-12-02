@@ -11,7 +11,7 @@ thcockerham<!DOCTYPE html>
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
-                <h1>⚡ Wind Turbine Failure Prediction</h1>
+                <h1>Wind Turbine Failure Prediction</h1>
             </div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
@@ -108,35 +108,30 @@ thcockerham<!DOCTYPE html>
                 </div>
 
                 <div class="finding-card">
-                    <div class="finding-icon">📊</div>
                     <h3>Window Statistics > Raw Time Series</h3>
                     <p><strong>Rationale:</strong> Aggregating 24h windows into mean/std/trend reduces dimensionality while capturing essential patterns. Enables consistent feature space across 81-952 sensors.</p>
                     <p style="margin-top: 0.5rem;"><strong>Alternative considered:</strong> CNN on raw sequences (rejected - too many sensors)</p>
                 </div>
 
                 <div class="finding-card">
-                    <div class="finding-icon">🎯</div>
                     <h3>Cohen's d > Univariate Tests</h3>
                     <p><strong>Rationale:</strong> Cohen's d measures practical significance (effect size), not just statistical significance. More appropriate for small samples where p-values can be misleading.</p>
                     <p style="margin-top: 0.5rem;"><strong>Threshold:</strong> d > 0.8-1.0 (large effect size)</p>
                 </div>
 
                 <div class="finding-card">
-                    <div class="finding-icon">🔄</div>
                     <h3>Leave-One-Out CV > K-Fold</h3>
                     <p><strong>Rationale:</strong> With only 6-27 failures, standard k-fold would have <2 failures per fold. LOO maximizes training data (n-1) while providing unbiased estimates.</p>
                     <p style="margin-top: 0.5rem;"><strong>Trade-off:</strong> Computationally expensive but necessary</p>
                 </div>
 
                 <div class="finding-card">
-                    <div class="finding-icon">⚖️</div>
                     <h3>Precision > Recall Trade-off</h3>
                     <p><strong>Rationale:</strong> False alarms cost $5K-$10K (unnecessary inspection) and erode operator trust. Optimized for 95%+ precision while maximizing recall within this constraint.</p>
                     <p style="margin-top: 0.5rem;"><strong>Result:</strong> 100% validation precision achieved</p>
                 </div>
 
                 <div class="finding-card">
-                    <div class="finding-icon">🏭</div>
                     <h3>±30 Day Exclusion Zones</h3>
                     <p><strong>Rationale:</strong> Prevents data leakage from pre-failure degradation (7-day pattern) or post-failure anomalies. Ensures true "normal" baseline windows.</p>
                     <p style="margin-top: 0.5rem;"><strong>Validation:</strong> Tested 15, 30, 45 days (30 optimal)</p>
@@ -202,27 +197,27 @@ thcockerham<!DOCTYPE html>
             
             <div class="findings-grid">
                 <div class="finding-card">
-                    <h3>💡 Data Quality > Model Complexity</h3>
+                    <h3>Data Quality > Model Complexity</h3>
                     <p>Spent 40% of time on data validation and cleaning. Critical insight about status filtering (status==0 AND power>0.1) discovered through EDA, dramatically improved performance.</p>
                 </div>
 
                 <div class="finding-card">
-                    <h3>📊 Feature Engineering is Key</h3>
+                    <h3>Feature Engineering is Key</h3>
                     <p>Window aggregation (mean, std, trend) captures 90% of signal. Adding max/min provided minimal gain. Simple statistics on domain-informed features > complex architectures.</p>
                 </div>
 
                 <div class="finding-card">
-                    <h3>⚖️ Multi-Domain Learning Trade-offs</h3>
+                    <h3>Multi-Domain Learning Trade-offs</h3>
                     <p>Unified approach improves limited-data scenarios (+17%) but sacrifices peak performance on well-instrumented farms (-7 to -9%). Generalizability vs. optimization is fundamental.</p>
                 </div>
 
                 <div class="finding-card">
-                    <h3>🎯 Validation Strategy Matters</h3>
+                    <h3>Validation Strategy Matters</h3>
                     <p>Independent validation (Farm C) provided confidence in methodology transferability. LOO CV appropriate for small n. Real-world validation > perfect metrics on training set.</p>
                 </div>
 
                 <div class="finding-card">
-                    <h3>📝 Documentation Pays Off</h3>
+                    <h3>Documentation Pays Off</h3>
                     <p>Systematic documentation of every decision, trade-off, and alternative considered creates portfolio value. 30,000+ words across all methodology documents demonstrates rigorous thinking.</p>
                 </div>
 
