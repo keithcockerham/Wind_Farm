@@ -118,21 +118,6 @@ Developed a failure prediction system for wind turbines that detects 67% of fail
 - Production pipeline design
 
 ---
-
-## 🌐 Live Demo
-
-**Interactive Streamlit App:** [https://windfarm.streamlit.app/](https://windfarm.streamlit.app/)
-
-Explore:
-- Methodology walkthrough
-- Per-farm performance details
-- Feature importance analysis
-- Model performance metrics
-- Deployment calculator
-- Unified model comparison
-
----
-
 ## Documentation
 
 ### Complete Guides
@@ -182,3 +167,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 *Last Updated: December 2025*
+
