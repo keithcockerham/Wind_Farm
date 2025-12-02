@@ -137,8 +137,8 @@ Explore:
 
 ### Complete Guides
 
-- [**Full Methodology**](docs/methodology.md) - 15,000-word detailed explanation
-- [**Unified Model**](docs/unified_model.md) - Cross-farm learning approach
+- [**Full Methodology**](docs/methodology.md) - Farm-specific Approach
+- [**Unified Model**](docs/unified_model.md) - Cross-Farm Unified Model 
 
 ### Quick Links
 
@@ -179,5 +179,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Data Source:** EDP Open Data - Wind Turbine SCADA Dataset
 - **Inspiration:** Real-world industrial predictive maintenance challenges
 - **Purpose:** Data science project
+
 
 *Last Updated: December 2025*
