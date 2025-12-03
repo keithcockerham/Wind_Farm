@@ -5,9 +5,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Streamlit App](https://img.shields.io/badge/Streamlit-Demo-FF4B4B)](https://windfarm.streamlit.app/)
 
-**Portfolio Project** | Machine Learning for Predictive Maintenance 
+**Data Science Project** | Machine Learning for Predictive Maintenance 
 ---
-
+## Dashboard
+- [**Dashboard**](https://keithcockerham.github.io/Wind_Farm/) 
+---
 ## Project Overview
 
 Developed a failure prediction system for wind turbines that detects 67% of failures 24 hours in advance with 100% precision on validation farms. Validated systematic methodology across three independent wind farms with different turbine models (81 to 952 sensors).
@@ -167,4 +169,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 *Last Updated: December 2025*
+
 
