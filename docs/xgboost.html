@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XGBoost Model - Wind Turbine Failure Prediction</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>Wind Turbine Failure Prediction</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="methodology.html">Random Forest</a></li>
+                <li><a href="xgboost.html" class="active">XGBoost</a></li>
+                <li><a href="results.html">Comparison</a></li>
+                <li><a href="https://github.com/keithcockerham/Wind_Farm" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>XGBoost Supervised Learning Approach</h2>
+                <p class="subtitle">100% Failure Detection | 0-1.9% False Positive Rate | Validated Across 3 Wind Farms</p>
+                <div class="hero-badges">
+                    <span class="badge badge-primary">Supervised Learning</span>
+                    <span class="badge badge-secondary">XGBoost</span>
+                    <span class="badge badge-tertiary">Class Imbalance Handling</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="metrics">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Performance Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">100%</div>
+                    <div class="metric-label">Recall (All Farms)</div>
+                    <p class="metric-desc">45 of 45 failures detected</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">0.8%</div>
+                    <div class="metric-label">Best FPR (Farm A)</div>
+                    <p class="metric-desc">~0.5 alerts/turbine/day</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">24h</div>
+                    <div class="metric-label">Warning Window</div>
+                    <p class="metric-desc">Early detection before failure</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">3.7% → 100%</div>
+                    <div class="metric-label">Improvement</div>
+                    <p class="metric-desc">After undersampling fix</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Comparison -->
+    <section class="overview">
+        <div class="container">
+            <h2>Farm-Specific Performance</h2>
+            
+            <div class="results-table-container">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Farm</th>
+                            <th>Environment</th>
+                            <th>Failures</th>
+                            <th>Recall</th>
+                            <th>FPR</th>
+                            <th>Alerts/Day</th>
+                            <th>Top Predictor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Farm A</strong></td>
+                            <td>Onshore, Portugal</td>
+                            <td>12</td>
+                            <td><span class="badge-success">100%</span></td>
+                            <td><span class="badge-success">0.8%</span></td>
+                            <td>0.5/turbine</td>
+                            <td>Reactive power variability (73%)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Farm B</strong></td>
+                            <td>Offshore, Germany</td>
+                            <td>6</td>
+                            <td><span class="badge-success">100%</span></td>
+                            <td><span class="badge-success">0.0%</span></td>
+                            <td>0/turbine</td>
+                            <td>Rotor bearing temp variability (87%)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Farm C</strong></td>
+                            <td>Offshore, Germany</td>
+                            <td>27</td>
+                            <td><span class="badge-success">100%</span></td>
+                            <td><span class="badge-success">1.9%</span></td>
+                            <td>2.7/turbine</td>
+                            <td>Power output variability (60%)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="chart-container" id="xgboostPerformanceChart"></div>
+        </div>
+    </section>
+
+    <!-- Methodology -->
+    <section class="technical">
+        <div class="container">
+            <h2>Methodology</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>1. Labeled Dataset Creation</h3>
+                    <ul>
+                        <li><strong>Positive Class (label=1):</strong> 24-hour window before last normal status</li>
+                        <li><strong>Negative Class (label=0):</strong> Normal operation with ±30 day buffer around failures</li>
+                        <li><strong>Critical Insight:</strong> Don't label during failure - label the warning period</li>
+                        <li>Result: ~3,500 pre-failure rows, ~50,000+ normal rows per farm</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-card">
+                    <h3>2. Class Imbalance Handling</h3>
+                    <ul>
+                        <li><strong>Problem:</strong> Initial 14:1 imbalance → 3.7% recall (model predicts "normal" constantly)</li>
+                        <li><strong>Solution:</strong> Strategic undersampling to 10% of normal data</li>
+                        <li>New ratio: ~1.4:1 (balanced training)</li>
+                        <li><strong>Result:</strong> 3.7% → 100% recall after fix</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-card">
+                    <h3>3. Feature Engineering</h3>
+                    <ul>
+                        <li><strong>Base sensors:</strong> Power, reactive power, bearing temps (farm-specific)</li>
+                        <li><strong>Rolling variability:</strong> 60-minute rolling std (captures erratic behavior)</li>
+                        <li><strong>Rate of change:</strong> First difference per asset</li>
+                        <li><strong>Key finding:</strong> Variability >> absolute values (60-87% feature importance)</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-card">
+                    <h3>4. Model Training & Validation</h3>
+                    <ul>
+                        <li><strong>Algorithm:</strong> XGBoost Classifier (100 trees, max_depth=5)</li>
+                        <li><strong>CV Strategy:</strong> Leave-one-event-out (proper for limited failures)</li>
+                        <li><strong>Data leakage prevention:</strong> Feature engineering INSIDE CV loop</li>
+                        <li><strong>Evaluation:</strong> Event-level aggregation (mean probability over 24h window)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Findings -->
+    <section class="findings">
+        <div class="container">
+            <h2>Key Findings</h2>
+            
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <h3>Perfect Recall Across All Farms</h3>
+                    <p>100% detection rate (45 of 45 failures) demonstrates supervised learning superiority when sufficient labeled examples exist. Each farm's unique failure patterns were learned effectively through XGBoost's gradient boosting.</p>
+                </div>
+                
+                <div class="finding-card">
+                    <h3>Exceptional False Positive Control</h3>
+                    <p>False positive rates of 0-1.9% translate to 0-2.7 alerts per turbine per day - operationally manageable. Farm B achieved zero false alarms, showing perfect discrimination on mechanical failure modes.</p>
+                </div>
+                
+                <div class="finding-card">
+                    <h3>Environment-Specific Failure Signatures</h3>
+                    <p>Each farm exhibits dominant failure predictors: Farm A (electrical/reactive power), Farm B (mechanical/bearing degradation), Farm C (overall power instability). Model automatically learns environment-specific patterns.</p>
+                </div>
+                
+                <div class="finding-card">
+                    <h3>Variability Trumps Thresholds</h3>
+                    <p>Rolling standard deviation features dominate importance (60-87%), confirming manual analysis that simple threshold monitoring misses failures. Erratic sensor behavior precedes catastrophic failure.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Importance -->
+    <section class="results-preview">
+        <div class="container">
+            <h2>Feature Importance Analysis</h2>
+            
+            <div class="chart-container" id="featureImportanceComparison" style="margin-bottom: 6rem;"></div>
+            
+            <div class="overview-grid" style="margin-top: 3rem;">
+                <div class="overview-card">
+                    <h3>Farm A: Electrical Dominance</h3>
+                    <p><strong>sensor_31_avg_roll_std (73%):</strong> Grid reactive power variability. Electrical instability and power quality issues dominate failures. Supports threshold analysis finding that reactive power spikes occur before failure but simple thresholds generate false alarms.</p>
+                </div>
+                
+                <div class="overview-card">
+                    <h3>Farm B: Mechanical Degradation</h3>
+                    <p><strong>sensor_52_avg_roll_std (87%):</strong> Rotor bearing temperature variability. Mechanical wear patterns in drivetrain. Temperature becomes erratic (not necessarily high) as bearing degradation accelerates before catastrophic failure.</p>
+                </div>
+                
+                <div class="overview-card">
+                    <h3>Farm C: System-Wide Instability</h3>
+                    <p><strong>power_2_avg_roll_std (60%):</strong> Power output variability. Offshore harsh environment creates diverse failure modes. Power generation instability is universal early indicator across different root causes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison with Random Forest -->
+    <section class="overview">
+        <div class="container">
+            <h2>XGBoost vs Random Forest Comparison</h2>
+            
+            <div class="chart-container" id="modelComparisonChart"></div>
+            
+            <div class="results-table-container" style="margin-top: 2rem;">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Random Forest</th>
+                            <th>XGBoost</th>
+                            <th>Winner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Recall (Farm A)</strong></td>
+                            <td>67% (8/12)</td>
+                            <td>100% (12/12)</td>
+                            <td><span class="badge-success">XGBoost +33%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Recall (Farm B)</strong></td>
+                            <td>33% (2/6)</td>
+                            <td>100% (6/6)</td>
+                            <td><span class="badge-success">XGBoost +67%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Recall (Farm C)</strong></td>
+                            <td>63% (17/27)</td>
+                            <td>100% (27/27)</td>
+                            <td><span class="badge-success">XGBoost +37%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>False Positives</strong></td>
+                            <td>0% (on validation set)</td>
+                            <td>0-1.9% (on 10K holdout)</td>
+                            <td><span class="badge-success">Tie</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Approach</strong></td>
+                            <td>Unsupervised features + supervised classification</td>
+                            <td>Pure supervised with engineered features</td>
+                            <td>Different paradigms</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Implementation Details -->
+    <section class="technical">
+        <div class="container">
+            <h2>Technical Implementation</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>Data Leakage Prevention</h3>
+                    <ul>
+                        <li>Feature engineering happens INSIDE cross-validation loop</li>
+                        <li>Each test event completely held out during training</li>
+                        <li>Rolling calculations only use data from same fold</li>
+                        <li>Critical: Initial 100% results were too good - found and fixed leakage</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-card">
+                    <h3>Hyperparameters</h3>
+                    <ul>
+                        <li><strong>n_estimators:</strong> 100 trees</li>
+                        <li><strong>max_depth:</strong> 5 (prevent overfitting on limited failures)</li>
+                        <li><strong>learning_rate:</strong> 0.1 (standard)</li>
+                        <li><strong>scale_pos_weight:</strong> Calculated per fold (handle imbalance)</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-card">
+                    <h3>False Positive Rate Evaluation</h3>
+                    <ul>
+                        <li>Tested on 10,000 held-out normal operation timestamps</li>
+                        <li>Different random seed (99) from training (42)</li>
+                        <li>Critical validation: High recall with low FPR proves model isn't trigger-happy</li>
+                        <li>Farm B: 0 false alarms on 10K samples = exceptional discrimination</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-card">
+                    <h3>Production Considerations</h3>
+                    <ul>
+                        <li><strong>Alert volume:</strong> 0-2.7 alerts/turbine/day = manageable</li>
+                        <li><strong>Cost avoidance:</strong> Preventing $500K+ failure >> $5-10K inspection cost</li>
+                        <li><strong>Operator trust:</strong> Low FPR maintains credibility</li>
+                        <li><strong>24h warning:</strong> Sufficient time for planned maintenance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lessons Learned -->
+    <section class="findings">
+        <div class="container">
+            <h2>Lessons Learned</h2>
+            
+            <div class="findings-grid">
+                <div class="finding-card">
+                    <h3>Class Imbalance is Critical</h3>
+                    <p>Initial 14:1 imbalance caused 3.7% recall - model learned "always predict normal." Strategic undersampling to ~1.4:1 ratio was game-changing. This is a common pitfall in anomaly detection that's often overlooked.</p>
+                </div>
+                
+                <div class="finding-card">
+                    <h3>Validate FPR Separately</h3>
+                    <p>100% recall means nothing if FPR is 50%. Testing on held-out normal data revealed true operational performance. Many practitioners skip this step and deploy models with unacceptable false alarm rates.</p>
+                </div>
+                
+                <div class="finding-card">
+                    <h3>Trust Your Skepticism</h3>
+                    <p>When initial results showed 100% across all farms, healthy skepticism led to discovering potential data leakage. Moving feature engineering inside CV loop validated the results were legitimate, not artifacts.</p>
+                </div>
+                
+                <div class="finding-card">
+                    <h3>Supervised > Unsupervised (When Possible)</h3>
+                    <p>With 45 labeled failures, XGBoost (100%) significantly outperforms Isolation Forest (74%). Supervised learning learns specific failure patterns when sufficient examples exist, rather than just "what's abnormal."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Explore More</h2>
+            <div class="cta-buttons">
+                <a href="methodology.html" class="btn btn-primary">Random Forest Approach</a>
+                <a href="results.html" class="btn btn-primary">Full Comparison</a>
+                <a href="https://github.com/keithcockerham/Wind_Farm" class="btn btn-secondary" target="_blank">
+                    <svg width="20" height="20" fill="currentColor" style="vertical-align: middle; margin-right: 8px;">
+                        <path d="M10 0C4.477 0 0 4.477 0 10c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0110 4.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C17.137 18.163 20 14.418 20 10c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                    GitHub Repository
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Keith | 2025 Data Science Project | <a href="https://github.com/keithcockerham" target="_blank">GitHub</a></p>
+        </div>
+    </footer>
+
+    <script src="xgboost-charts.js"></script>
+</body>
+</html>
